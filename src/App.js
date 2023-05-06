@@ -1,45 +1,63 @@
-import React, { useState } from 'react';
-import Header from './Components/Header/Header';
-import ToDoList from './Components/ToDoLIst/ToDoList';
+import React, { useState, useCallback } from "react";
+import Header from "./Components/Header/Header";
+import ToDoList from "./Components/ToDoLIst/ToDoList";
 import data from "./data.json";
-import './App.css';
-import ToDoForm from './Components/ToDoForm/ToDoForm';
-
+import ToDoForm from "./Components/ToDoForm/ToDoForm";
+import "./App.css";
 
 function App() {
-  
-  const [ toDoList, setToDoList ] = useState(data);
+  const [toDoList, setToDoList] = useState(data);
+  const [doneTodo, setDoneTodo] = useState();
+  // if true you will show only completed
+  // if false you will show only uncompleted
+  // if undefined you will show all todolist
 
-  const handleToggle = (id) => {
-    let mapped = toDoList.map(task => {
-      return task.id === Number(id) ? { ...task, complete: !task.complete } : { ...task};
+  const handleToggle = useCallback((id) => {
+    let mapped = toDoList.map((task) => {
+      return task.id === Number(id)
+        ? { ...task, complete: !task.complete }
+        : task;
     });
     setToDoList(mapped);
-  }
+  }, [toDoList]);
 
-  const handleFilter = () => {
-    let filtered = toDoList.filter(task => {
-      return !task.complete;
-    });
-    setToDoList(filtered);
-  }
+  // const handleCompleted = useCallback(() => {
+  //   let filtered = toDoList.filter((task) => {
+  //     return task.complete;
+  //   });
+  //   setToDoList(filtered);
+  // }, [toDoList]);
 
-  const addTask = (userInput ) => {
+  // const handleUncompleted = useCallback(() => {
+  //   let filtered = toDoList.filter((task) => {
+  //     return !task.complete;
+  //   });
+  //   setToDoList(filtered);
+  // }, [toDoList]);
+
+  const addTask = useCallback((userInput) => {
     let copy = [...toDoList];
-    copy = [...copy, { id: toDoList.length + 1, task: userInput, complete: false }];
+    copy = [
+      ...copy,
+      { id: toDoList.length + 1, task: userInput, complete: false },
+    ];
     setToDoList(copy);
-  }
+  }, [toDoList]);
+
+  const filteredList = toDoList.filter();
 
   return (
     <div className="App">
       <Header />
-      <ToDoList toDoList={toDoList} handleToggle={handleToggle} handleFilter={handleFilter}/>
-      <ToDoForm addTask={addTask}/>
+      <ToDoList
+        toDoList={filteredList}
+        handleToggle={handleToggle}
+        handleCompleted={handleCompleted}
+        handleUncompleted={handleUncompleted}
+      />
+      <ToDoForm addTask={addTask} />
     </div>
   );
 }
 
 export default App;
-
-
-

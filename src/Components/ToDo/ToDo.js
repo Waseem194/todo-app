@@ -1,17 +1,14 @@
-import React from 'react';
+import React from "react";
 
-const ToDo = ({todo, handleToggle}) => {
-
-    const handleClick = (e) => {
-        e.preventDefault()
-        handleToggle(e.currentTarget.id)
-    }
-
-    return (
-        <div id={todo.id} key={todo.id + todo.task} name="todo" value={todo.id} onClick={handleClick} className={todo.complete ? "todo strike" : "todo"}>
-            {todo.task}
-        </div>
-    );
+const ToDo = ({ toDo, handleToggle }) => {
+  return (
+    <div
+      onClick={() => handleToggle(toDo.id)}
+      className={toDo.complete ? "todo strike" : "todo"}
+    >
+      {toDo.task}
+    </div>
+  );
 };
 
 export default ToDo;
