@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ToDo from "../ToDo/ToDo";
 
 import { Row, Col, Button, ListGroup, Container, Form } from "react-bootstrap";
+
 const ToDoList = ({
   doneTodo,
   handleToggle,
@@ -10,6 +11,7 @@ const ToDoList = ({
   Completed,
   unComplete,
   allList,
+  useApi,
 }) => {
   return (
     <Container fluid="md">
@@ -22,7 +24,9 @@ const ToDoList = ({
       <Button style={{ margin: "20px" }} onClick={allList} variant="primary">
         Show All
       </Button>
-
+      <Button style={{ margin: "20px" }} onClick={useApi} variant="dark">
+        API
+      </Button>
       <ListGroup>
         {doneTodo.map((todo, index) => {
           return (

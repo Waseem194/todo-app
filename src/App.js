@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, axios } from "react";
 import Header from "./Components/Header/Header";
 import ToDoList from "./Components/ToDoList/ToDoList";
 import data from "./data.json";
 import ToDoForm from "./Components/ToDoForm/ToDoForm";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import "./App.css";
 
 function App() {
@@ -72,22 +73,40 @@ function App() {
       return true;
     }
   });
-
+  // API CODE
+  const useApi = () => {
+    let API = "https://official-joke-api.appspot.com/random_joke";
+  
+    const apiData = async (url) => {
+      try {
+        const res = fetch(url);
+        url.unshift(res);
+        let data = await res.json();
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    useEffect(() => {
+      apiData(API);
+    }, []);
+  };
+  
   return (
     <div className="App">
       <Header />
       <ToDoForm addTask={addTask} />
       <ToDoList
         doneTodo={filterList}
+        useApi={useApi}
         handleToggle={handleToggle}
         Completed={Completed}
         unComplete={unComplete}
         allList={allList}
- 
+
         // handleCompleted={handleCompleted}
         // handleUncompleted={handleUncompleted}
       />
-     
     </div>
   );
 }
