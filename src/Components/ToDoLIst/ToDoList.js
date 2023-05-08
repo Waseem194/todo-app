@@ -1,34 +1,46 @@
 import React from "react";
 import ToDo from "../ToDo/ToDo";
 
+import { Row, Col, Button, ListGroup, Container, Form } from "react-bootstrap";
 const ToDoList = ({
-  toDoList,
+  doneTodo,
   handleToggle,
-  handleCompleted,
-  handleUncompleted,
+  // handleCompleted,
+  // handleUncompleted,
+  Completed,
+  unComplete,
+  allList,
 }) => {
   return (
-    <div>
-      {toDoList.map((todo, index) => {
-        return (
-          <ToDo
-            key={index}
-            toDo={todo}
-            handleToggle={handleToggle}
-          />
-        );
-      })}
-      <button style={{ margin: "20px" }} onClick={handleCompleted}>
+    <Container fluid="md">
+      <Button style={{ margin: "20px" }} onClick={Completed} variant="success">
         Show Completed
-      </button>
-      <button style={{ margin: "20px" }} onClick={handleUncompleted}>
-        Show Uncompleted
-      </button>
-
-      <button style={{ margin: "20px" }} onClick={handleUncompleted}>
+      </Button>
+      <Button style={{ margin: "20px" }} onClick={unComplete} variant="warning">
+        Show Incomplete
+      </Button>
+      <Button style={{ margin: "20px" }} onClick={allList} variant="primary">
         Show All
-      </button>
-    </div>
+      </Button>
+
+      <ListGroup>
+        {doneTodo.map((todo, index) => {
+          return (
+            <Row key={index}>
+              <Col>
+                <ListGroup.Item>
+                  <ToDo
+                    // key={index}
+                    toDo={todo}
+                    handleToggle={handleToggle}
+                  />
+                </ListGroup.Item>
+              </Col>
+            </Row>
+          );
+        })}
+      </ListGroup>
+    </Container>
   );
 };
 
