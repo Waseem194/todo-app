@@ -78,6 +78,16 @@ function App() {
     [toDoList]
   );
 
+  const addAtFirst = useCallback((item) => {
+    const newTask = {
+      task: item,
+      complete: false,
+    };
+    const newList = [newTask, ...toDoList];
+    setToDoList(newList); // reference comparison ki waja se state update hoti hai
+  }, [toDoList]);
+
+  console.log(toDoList);
   const filterList = toDoList.filter((item) => {
     if (doneTodo === undefined) {
       return true;
@@ -96,7 +106,8 @@ function App() {
       const data = await response.json();
       // JavaScript Object Notation
       // [{ a: "1", b: "2"}]
-      addTask(data.setup);
+      // addTask(data.setup);
+      addAtFirst(data.setup);
     } catch(error) {
       console.log(error);
     }
