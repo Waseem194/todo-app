@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect, axios } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Header from "./Components/Header/Header";
-import ToDoList from "./Components/ToDoList/ToDoList";
+import TodoList from "./Components/ToDoList/ToDoList";
 import data from "./data.json";
 import ToDoForm from "./Components/ToDoForm/ToDoForm";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,6 +13,20 @@ function App() {
   // if true you will show only completed
   // if false you will show only uncompleted
   // if undefined you will show all todolist
+
+  // mount, update, unmount
+  useEffect(() => {
+    console.log("Only runs on Mount");
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    if (doneTodo) {
+      setDoneTodo(false);
+    }
+    console.log("this runs when doneTodo state changes", doneTodo, toDoList);
+  }, [doneTodo, toDoList]);
+
 
   const handleToggle = useCallback(
     (id) => {
@@ -73,32 +87,38 @@ function App() {
       return true;
     }
   });
+
   // API CODE
-  const useApi = () => {
-    let API = "https://official-joke-api.appspot.com/random_joke";
+  const loadData = async () => {
+    const url = "https://official-joke-api.appspot.com/random_joke";
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      // JavaScript Object Notation
+      // [{ a: "1", b: "2"}]
+      addTask(data.setup);
+    } catch(error) {
+      console.log(error);
+    }
   
-    const apiData = async (url) => {
-      try {
-        const res = fetch(url);
-        url.unshift(res);
-        let data = await res.json();
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    useEffect(() => {
-      apiData(API);
-    }, []);
+    // const apiData = async (url) => {
+    //   try {
+    //     const res = fetch(url);
+    //     url.unshift(res);
+    //     let data = await res.json();
+    //     console.log(data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
   };
-  
   return (
     <div className="App">
       <Header />
       <ToDoForm addTask={addTask} />
-      <ToDoList
+      <TodoList
         doneTodo={filterList}
-        useApi={useApi}
+        loadData={loadData}
         handleToggle={handleToggle}
         Completed={Completed}
         unComplete={unComplete}

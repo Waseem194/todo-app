@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import ToDo from "../ToDo/ToDo";
 
-import { Row, Col, Button, ListGroup, Container, Form } from "react-bootstrap";
+import { Row, Col, Button, ListGroup, Container } from "react-bootstrap";
 
 const ToDoList = ({
   doneTodo,
   handleToggle,
-  // handleCompleted,
-  // handleUncompleted,
   Completed,
   unComplete,
   allList,
-  useApi,
+  loadData,
 }) => {
+  useEffect(() => {
+    console.log("doneTodo prop has changed");
+  }, [doneTodo]);
   return (
     <Container fluid="md">
       <Button style={{ margin: "20px" }} onClick={Completed} variant="success">
@@ -24,8 +25,8 @@ const ToDoList = ({
       <Button style={{ margin: "20px" }} onClick={allList} variant="primary">
         Show All
       </Button>
-      <Button style={{ margin: "20px" }} onClick={useApi} variant="dark">
-        API
+      <Button style={{ margin: "20px" }} onClick={loadData} variant="dark">
+        Load data
       </Button>
       <ListGroup>
         {doneTodo.map((todo, index) => {
