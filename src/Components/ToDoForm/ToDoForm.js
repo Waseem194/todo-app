@@ -13,10 +13,10 @@ const ToDoForm = ({ addTask }) => {
     setUserInput("");
   };
   return (
-    <Container  fluid="md">
-        <Form onSubmit={handleSubmit}>
-      <Row>
-          <Col md={10} >
+    <Container fluid="md">
+      <Form onSubmit={handleSubmit}>
+        <Row>
+          <Col md={10}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
                 type="text"
@@ -26,13 +26,13 @@ const ToDoForm = ({ addTask }) => {
               />
             </Form.Group>
           </Col>
-          <Col md={2} >
+          <Col md={2}>
             <Button variant="primary" type="submit">
               Add Task
             </Button>
           </Col>
-      </Row>
-        </Form>
+        </Row>
+      </Form>
     </Container>
   );
 };

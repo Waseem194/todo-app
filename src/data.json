@@ -1,41 +1,41 @@
 [{
     "id": 1,
-    "task": "Give dog a bath",
+    "task": "Home Work",
     "complete": true
   }, {
     "id": 2,
-    "task": "Do laundry",
+    "task": "School Work",
     "complete": true
   }, {
     "id": 3,
-    "task": "Vacuum floor",
+    "task": "Tution Work",
     "complete": false
   }, {
     "id": 4,
-    "task": "Feed cat",
+    "task": "Arabi Work",
     "complete": true
   }, {
     "id": 5,
-    "task": "Change light bulbs",
+    "task": "Neat Work",
     "complete": false
   }, {
     "id": 6,
-    "task": "Go to Store",
+    "task": "Clean Uniform",
     "complete": true
   }, {
     "id": 7,
-    "task": "Fill gas tank",
+    "task": "Polish Shoes",
     "complete": true
   }, {
     "id": 8,
-    "task": "Change linens",
+    "task": "Take Ti",
     "complete": false
   }, {
     "id": 9,
-    "task": "Rake leaves",
+    "task": "Take Leave",
     "complete": true
   }, {
     "id": 10,
-    "task": "Bake Cookies",
+    "task": "Take Rest",
     "complete": false
   }]
