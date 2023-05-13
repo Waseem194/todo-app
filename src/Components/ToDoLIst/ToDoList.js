@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ToDo from "../ToDo/ToDo";
 
-import { Row, Col, Button, ListGroup, Container } from "react-bootstrap";
+import { Row, Col, Button, ListGroup, Container,Spinner } from "react-bootstrap";
 
 const ToDoList = ({
   doneTodo,
@@ -10,6 +10,8 @@ const ToDoList = ({
   unComplete,
   allList,
   loadData,
+  
+
 }) => {
   useEffect(() => {
     console.log("doneTodo prop has changed");
@@ -26,6 +28,7 @@ const ToDoList = ({
         Show All
       </Button>
       <Button style={{ margin: "20px" }} onClick={loadData} variant="dark">
+      
         Load data
       </Button>
       <ListGroup>

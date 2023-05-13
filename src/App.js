@@ -10,23 +10,25 @@ import "./App.css";
 function App() {
   const [toDoList, setToDoList] = useState(data);
   const [doneTodo, setDoneTodo] = useState();
+  const [loading, setLoading] = useState(true);
   // if true you will show only completed
   // if false you will show only uncompleted
   // if undefined you will show all todolist
 
   // mount, update, unmount
-  useEffect(() => {
-    console.log("Only runs on Mount");
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   console.log("Only runs on Mount");
+  //   return () => {};
+  // }, []);
 
-  useEffect(() => {
-    if (doneTodo) {
-      setDoneTodo(false);
-    }
-    console.log("this runs when doneTodo state changes", doneTodo, toDoList);
-  }, [doneTodo, toDoList]);
+  // useEffect(() => {
+  //   if (doneTodo) {
+  //     setDoneTodo(false);
+  //   }
+  //   console.log("this runs when doneTodo state changes", doneTodo, toDoList);
+  // }, [doneTodo, toDoList]);
 
+  
 
   const handleToggle = useCallback(
     (id) => {
@@ -78,14 +80,19 @@ function App() {
     [toDoList]
   );
 
-  const addAtFirst = useCallback((item) => {
-    const newTask = {
-      task: item,
-      complete: false,
-    };
-    const newList = [newTask, ...toDoList];
-    setToDoList(newList); // reference comparison ki waja se state update hoti hai
-  }, [toDoList]);
+  const addAtFirst = useCallback(
+    (item) => {
+      setLoading(true)
+      const newTask = {
+        task: item,
+        complete: false,
+      };
+      const newList = [newTask, ...toDoList];
+      setToDoList(newList); // reference comparison ki waja se state update hoti hai
+      setLoading(false)
+    },
+    [toDoList]
+  );
 
   console.log(toDoList);
   const filterList = toDoList.filter((item) => {
@@ -108,10 +115,10 @@ function App() {
       // [{ a: "1", b: "2"}]
       // addTask(data.setup);
       addAtFirst(data.setup);
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
-  
+
     // const apiData = async (url) => {
     //   try {
     //     const res = fetch(url);
@@ -134,7 +141,7 @@ function App() {
         Completed={Completed}
         unComplete={unComplete}
         allList={allList}
-
+        // spinnerData={spinnerData}
         // handleCompleted={handleCompleted}
         // handleUncompleted={handleUncompleted}
       />
