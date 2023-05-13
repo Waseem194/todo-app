@@ -10,7 +10,7 @@ import "./App.css";
 function App() {
   const [toDoList, setToDoList] = useState(data);
   const [doneTodo, setDoneTodo] = useState();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState();
   // if true you will show only completed
   // if false you will show only uncompleted
   // if undefined you will show all todolist
@@ -28,12 +28,9 @@ function App() {
   //   console.log("this runs when doneTodo state changes", doneTodo, toDoList);
   // }, [doneTodo, toDoList]);
 
-  
-
   const handleToggle = useCallback(
     (id) => {
       let mapped = toDoList.map((task, index) => {
-        // key={index}
         return task.id === Number(id)
           ? { ...task, complete: !task.complete }
           : task;
@@ -80,21 +77,16 @@ function App() {
     [toDoList]
   );
 
-  const addAtFirst = useCallback(
-    (item) => {
-      setLoading(true)
-      const newTask = {
-        task: item,
-        complete: false,
-      };
-      const newList = [newTask, ...toDoList];
-      setToDoList(newList); // reference comparison ki waja se state update hoti hai
-      setLoading(false)
-    },
-    [toDoList]
-  );
+  const addAtFirst = () => {
+    const newTask = {
+      id: toDoList.length + 1,
+      newlyAdded: true,
+    };
+    // const newList = [newTask, ...toDoList];
+    toDoList.unshift(newTask);
+    setToDoList(toDoList); // reference comparison ki waja se state update hoti hai
+  };
 
-  console.log(toDoList);
   const filterList = toDoList.filter((item) => {
     if (doneTodo === undefined) {
       return true;
@@ -103,18 +95,34 @@ function App() {
     if (doneTodo === item.complete) {
       return true;
     }
+    return false;
   });
+
+  const updateNewlyAddedData = (taskItem) => {
+    const newList = toDoList.map((item) => {
+      if(item.newlyAdded) {
+        return {
+          ...item,
+          task: taskItem,
+          complete: false,
+          newlyAdded: false,
+        };
+      }
+      return item;
+    });
+    setToDoList(newList);
+  };
 
   // API CODE
   const loadData = async () => {
+    setLoading(true);
+    addAtFirst();
     const url = "https://official-joke-api.appspot.com/random_joke";
     try {
       const response = await fetch(url);
       const data = await response.json();
-      // JavaScript Object Notation
-      // [{ a: "1", b: "2"}]
-      // addTask(data.setup);
-      addAtFirst(data.setup);
+      updateNewlyAddedData(data.setup);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -135,6 +143,7 @@ function App() {
       <Header />
       <ToDoForm addTask={addTask} />
       <TodoList
+        loading={loading}
         doneTodo={filterList}
         loadData={loadData}
         handleToggle={handleToggle}

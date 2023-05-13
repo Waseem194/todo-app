@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Container, Row, Col, Spinner } from "react-bootstrap";
+import { Button, Form, Container, Row, Col } from "react-bootstrap";
 const ToDoForm = ({ addTask }) => {
   const [userInput, setUserInput] = useState("");
 
@@ -33,7 +33,6 @@ const ToDoForm = ({ addTask }) => {
           </Col>
         </Row>
       </Form>
-      <Spinner animation="border" variant="primary" />
     </Container>
   );
 };
