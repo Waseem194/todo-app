@@ -100,7 +100,7 @@ function App() {
 
   const updateNewlyAddedData = (taskItem) => {
     const newList = toDoList.map((item) => {
-      if(item.newlyAdded) {
+      if (item.newlyAdded) {
         return {
           ...item,
           task: taskItem,

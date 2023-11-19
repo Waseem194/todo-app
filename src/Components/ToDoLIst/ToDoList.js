@@ -42,7 +42,7 @@ const ToDoList = ({
         {loading && (
           <Spinner
             as="span"
-            // animation="border"
+            animation="border"
             size="sm"
             role="status"
             aria-hidden="true"
